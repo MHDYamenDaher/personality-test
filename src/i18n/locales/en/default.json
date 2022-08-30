@@ -1,0 +1,23 @@
+{
+    "project_name": "Personality test",
+    "start_the_test_btn_label": "Start the test",
+    "landing_screen_title": "Are you an introvert or an extrovert?",
+    "how_it_works_label": "How it works?",
+    "how_it_works_note_1_title": "Prepare",
+    "how_it_works_note_1_description": "Make sure you are in a comfortable place where you can focus",
+    "how_it_works_note_2_title": "Start the test",
+    "how_it_works_note_2_description": "You will be answered on 5 questions about yourself",
+    "how_it_works_note_3_title": "Get your results",
+    "how_it_works_note_3_description": "How much you are introvert and how much you are extrovert",
+    "enter_your_name_label": "Please enter your name",
+    "start_btn_label": "Start", 
+    "name_input_placeholder": "Enter your name",
+    "implemented_by": "Implemented by _EMAIL_",
+    "next_question_btn_label": "Next question",
+    "previous_question_btn_label": "Previous question",
+    "submit_btn_label": "Submit",
+    "result_title": "__NAME__ Your result is: ",
+    "introvert_label": "Introvert:",
+    "extrovert_label": "Extrovert:",
+    "take_test_again_label": "Take the test Again"
+}

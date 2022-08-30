@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Themes
+@import 'themes';
+
+// 5. Components
+@import 'components/answerContainer';
+
+// Base stuff
+@import 'base/fonts';
+
+// Page-specific styles parsing it at the end to override vendors
+@import 'pages/landing';

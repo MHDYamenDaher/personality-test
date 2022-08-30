@@ -1,0 +1,28 @@
+// -----------------------------------------------------------------------------
+// This file contains all @font-face declarations, if any.
+// -----------------------------------------------------------------------------
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../fonts/Raleway-Bold.ttf') format('truetype');
+    font-weight: bolder;
+}
+  
+  
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../fonts/Raleway-SemiBold.ttf') format('truetype');
+    font-weight: bold;
+}
+  
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../fonts/Raleway-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@layer base {
+    html {
+      font-family: 'Raleway', system-ui, sans-serif;
+    }
+}

@@ -47,8 +47,8 @@ const Result: FC<Props> = () => {
     return (
         <TestBodyLayout title={translate('result_title').replace('__NAME__', state.name)}>
             <div className="w-full flex flex-row justify-center items-center mt-20">
-                <p className="text-2xl italic text-gray-600 mr-10">{translate('introvert_label')} <span className='text-blue-500'>{`${results?.inrtovert}%`}</span></p>
-                <p className="text-2xl italic text-gray-600">{translate('extrovert_label')} <span className='text-blue-500'>{`${results?.extrovert}%`}</span></p>
+                <p className="text-2xl italic text-white mr-10">{translate('introvert_label')} <span className='text-blue-50'>{`${results?.inrtovert}%`}</span></p>
+                <p className="text-2xl italic text-white">{translate('extrovert_label')} <span className='text-blue-50'>{`${results?.extrovert}%`}</span></p>
             </div>
             <div className='flex flex-rwo justify-center'>
                 <button 
@@ -58,7 +58,7 @@ const Result: FC<Props> = () => {
                     resetTest();
                     openScreen(TEST_SCREENS.INFO);
                 }}
-                className='w-60 mt-10 whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-700'>
+                className='w-60 mt-10 whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>
                     {translate('take_test_again_label')}
                 </button>
             </div>

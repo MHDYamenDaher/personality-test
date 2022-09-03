@@ -48,7 +48,7 @@ const Info: FC<Props> = () => {
                disabled={name === ''}
                type='button'
                onClick={handleStartAction}
-               className='w-60 mt-10 whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-700'>
+               className='w-60 mt-10 whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>
                 {translate('start_btn_label')}
             </button>
         );
@@ -62,7 +62,7 @@ const Info: FC<Props> = () => {
                       type="text" 
                       name="price" 
                       id="price" 
-                      className="border border-gray-300 px-4 py-3 focus:border-blue-200 block w-full sm:text-sm border-gray-300 rounded-md"
+                      className="px-4 py-3 focus:outline-none focus:border-blue-50 focus:ring-1 focus:ring-blue-50 block w-full sm:text-sm rounded-md"
                       placeholder={translate('name_input_placeholder')}
                       value={name}
                       onChange={handleNameChange}

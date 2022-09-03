@@ -11,7 +11,7 @@ import { UserProvider } from '../../contexts/user/context';
 const Test: FC = () => {
     return (
         <MainLayout>
-            <div className="bg-blue-200 w-100 h-92 flex justify-center items-center">
+            <div className="bg-blue-50 w-100 h-92 flex justify-center items-center">
                 <TestProvider>
                     <UserProvider>
                         <TestLayout>

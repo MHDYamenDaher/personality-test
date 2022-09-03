@@ -24,7 +24,7 @@ const Landing: FC = () => {
                 </div>
             </div>
             <div className='bg-blue-50 mt-20 py-20'>
-                <div className='grid grid-row-auto justify-center text-red-100 italic text-3xl font-bold'>
+                <div className='grid grid-row-auto justify-center text-white italic text-3xl font-bold'>
                     {translate('how_it_works_label')}
                 </div>
                 <div className="xl:container md:container mx-auto">

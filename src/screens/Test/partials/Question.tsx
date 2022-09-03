@@ -1,29 +1,31 @@
-import React, { FC, Dispatch, SetStateAction, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import TestBodyLayout from '../../../shared/layouts/TestBodyLayout';
 import Question from '../../../shared/models/Question';
-import UserInfo from '../../../shared/models/UserInfo';
 import Answer from '../../../shared/models/Answer';
 import AnswerContainer from '../../../components/AnswerContainer';
 import UserAnswer from '../../../shared/models/UserAnswer';
 import { TEST_SCREENS } from '../constants';
+import { UserContext } from '../../../contexts/user/context';
+import { ALL_QUESTIONS } from '../queries';
+import { useQuery } from 'react-query';
+import { TestContext } from '../../../contexts/test/context';
 
 interface Props {
     keyName?: string,
-    userInfo: UserInfo,
-    updateUserInfo: Dispatch<SetStateAction<UserInfo>>,
-    questions?: Array<Question>,
-    currentQuestion: Question,
-    setNextQuestion: Dispatch<SetStateAction<Question>>,
-    openScreen: Dispatch<SetStateAction<string>>,
 }
 
-const QuestionScreen: FC<Props> = ({userInfo, updateUserInfo, currentQuestion, setNextQuestion, questions, openScreen }) => {
+const QuestionScreen: FC<Props> = () => {
 
     const {t: translate } = useTranslation();
 
-    const isLastQuestion = parseInt(currentQuestion.id) === questions?.length;
-    const isFirstQuestion = parseInt(currentQuestion.id) === 1;
+    const {state, updateAnswers} = useContext(UserContext);
+    const {state: testState, openScreen, changeQuestion } = useContext(TestContext);
+
+    const { data: questions } = useQuery<Array<Question>>(ALL_QUESTIONS);
+
+    const isLastQuestion = parseInt(testState.currentQuestion.id) === questions?.length;
+    const isFirstQuestion = parseInt(testState.currentQuestion.id) === 1;
 
     const [checkedAnswer, setCheckedAnswer] = useState<Answer>({
         id: '',
@@ -34,17 +36,7 @@ const QuestionScreen: FC<Props> = ({userInfo, updateUserInfo, currentQuestion, s
 
     const handleConfirmAnswer = () => {
 
-        const selectedUserAnswerIndex = userInfo.answers.findIndex((userAnswer) => userAnswer.questionId === currentQuestion.id);
-
-        if (selectedUserAnswerIndex >= 0) {
-            const newAnswers = userInfo.answers;
-            newAnswers.splice(selectedUserAnswerIndex, 1);
-            newAnswers.push({questionId: currentQuestion.id, answerId: checkedAnswer.id});
-            updateUserInfo({...userInfo, answers: newAnswers});
-        } else {
-            const answer: UserAnswer = {questionId: currentQuestion.id, answerId: checkedAnswer.id};
-            updateUserInfo({...userInfo, answers: [...userInfo.answers, answer]  });
-        }
+        updateAnswers({answer: checkedAnswer, answers: state.answers, question: testState.currentQuestion});
 
         if (isLastQuestion) {
             openScreen(TEST_SCREENS.RESULT);
@@ -55,24 +47,24 @@ const QuestionScreen: FC<Props> = ({userInfo, updateUserInfo, currentQuestion, s
                 introvertScore: 0,
                 extrovertScore: 0,
             });
-            const nextQuestion = questions?.find((question: Question) => question.id === (parseInt(currentQuestion.id) + 1).toString()) as Question;
-            setNextQuestion(nextQuestion);
+            const nextQuestion = questions?.find((question: Question) => question.id === (parseInt(testState.currentQuestion.id) + 1).toString()) as Question;
+            changeQuestion(nextQuestion);
         }
     };
 
     const handlePrevAction = () => {
-        const nextQuestion = questions?.find((question: Question) => question.id === (parseInt(currentQuestion.id) - 1).toString()) as Question;
-        setNextQuestion(nextQuestion);
+        const nextQuestion = questions?.find((question: Question) => question.id === (parseInt(testState.currentQuestion.id) - 1).toString()) as Question;
+        changeQuestion(nextQuestion);
     };
 
     useEffect(() => {
-        const selectedUserAnswer = userInfo.answers.find((userAnswer) => userAnswer.questionId === currentQuestion.id ) as UserAnswer;
+        const selectedUserAnswer = state.answers.find((userAnswer: any) => userAnswer.questionId === testState.currentQuestion.id ) as UserAnswer;
         if (selectedUserAnswer) {
-            const selectedAnswer = currentQuestion.answers.find((answer) => answer.id === selectedUserAnswer.answerId) as Answer;
+            const selectedAnswer = testState.currentQuestion.answers.find((answer: Answer) => answer.id === selectedUserAnswer.answerId) as Answer;
             setCheckedAnswer(selectedAnswer);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentQuestion]);
+    }, [testState.currentQuestion]);
 
 
     const renderNextButton = () => {
@@ -99,9 +91,9 @@ const QuestionScreen: FC<Props> = ({userInfo, updateUserInfo, currentQuestion, s
     };
 
     return (
-        <TestBodyLayout title={currentQuestion?.title}>
+        <TestBodyLayout title={testState.currentQuestion?.title}>
             <div className="flex flex-col px-5 mt-4">
-                {currentQuestion?.answers && currentQuestion?.answers.map((answer: Answer) => (
+                {testState.currentQuestion?.answers && testState.currentQuestion?.answers.map((answer: Answer) => (
                     <AnswerContainer 
                       key={answer?.id}
                       answer={answer}

@@ -1,30 +1,34 @@
-import React, { FC, useMemo, Dispatch, SetStateAction } from 'react';
+import React, { FC, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from 'react-query';
+import { TestContext } from '../../../contexts/test/context';
+import { UserContext } from '../../../contexts/user/context';
 import TestBodyLayout from '../../../shared/layouts/TestBodyLayout';
 import Answer from '../../../shared/models/Answer';
 import Question from '../../../shared/models/Question';
-import UserInfo from '../../../shared/models/UserInfo';
+import UserAnswer from '../../../shared/models/UserAnswer';
 import { TEST_SCREENS } from '../constants';
+import { ALL_QUESTIONS } from '../queries';
 
 interface Props {
     keyName?: string,
-    userInfo: UserInfo,
-    questions?: Array<Question>,
-    openScreen: Dispatch<SetStateAction<string>>,
-    resetUserInfo: () => void,
 }
 
-const Result: FC<Props> = ({ userInfo, questions, openScreen, resetUserInfo }) => {
+const Result: FC<Props> = () => {
 
     const {t: translate } = useTranslation();
+
+    const { data: questions } = useQuery<Array<Question>>(ALL_QUESTIONS);
+    const { state, resetUser } = useContext(UserContext);
+    const { openScreen, resetTest } = useContext(TestContext);
 
 
     const results = useMemo(() => {
 
         let result = {inrtovert: 0, extrovert: 0};
 
-        if (userInfo.answers) {
-            result = userInfo.answers.reduce((accumulator: any, item) => {
+        if (state.answers) {
+            result = state.answers.reduce((accumulator: any, item: UserAnswer) => {
                 const question = questions?.find((question) => question.id === item.questionId) as Question;
                 const answer = question.answers.find((answer) => answer.id === item.answerId) as Answer;
 
@@ -41,7 +45,7 @@ const Result: FC<Props> = ({ userInfo, questions, openScreen, resetUserInfo }) =
     }, []);
 
     return (
-        <TestBodyLayout title={translate('result_title').replace('__NAME__', userInfo.name)}>
+        <TestBodyLayout title={translate('result_title').replace('__NAME__', state.name)}>
             <div className="w-full flex flex-row justify-center items-center mt-20">
                 <p className="text-2xl italic text-gray-600 mr-10">{translate('introvert_label')} <span className='text-blue-500'>{`${results?.inrtovert}%`}</span></p>
                 <p className="text-2xl italic text-gray-600">{translate('extrovert_label')} <span className='text-blue-500'>{`${results?.extrovert}%`}</span></p>
@@ -50,7 +54,8 @@ const Result: FC<Props> = ({ userInfo, questions, openScreen, resetUserInfo }) =
                 <button 
                 type='button'
                 onClick={() => {
-                    resetUserInfo();
+                    resetUser();
+                    resetTest();
                     openScreen(TEST_SCREENS.INFO);
                 }}
                 className='w-60 mt-10 whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-700'>

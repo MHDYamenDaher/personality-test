@@ -1,6 +1,6 @@
 import UserAnswer from "../UserAnswer";
 
-interface UserInfo {
+type UserInfo = {
     name: string,
     answers: Array<UserAnswer>
 }

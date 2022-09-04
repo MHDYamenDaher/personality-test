@@ -73,7 +73,7 @@ const QuestionScreen: FC<Props> = () => {
                disabled={checkedAnswer?.id === ''}
                type='button'
                onClick={handleConfirmAnswer}
-               className='w-32 sm:w-60 mt-10 md:whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>
+               className='mt-5 md:whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>
                 {isLastQuestion ? translate('submit_btn_label') : translate('next_question_btn_label')}
             </button>
         );
@@ -84,7 +84,7 @@ const QuestionScreen: FC<Props> = () => {
             <button 
                type='button'
                onClick={handlePrevAction}
-               className='w-32 sm:w-60 mt-10 md:whitespace-nowrap disabled:opacity-25 px-4  py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>
+               className='mt-5 md:whitespace-nowrap disabled:opacity-25 px-4  py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>
                 {translate('previous_question_btn_label')}
             </button>
         );

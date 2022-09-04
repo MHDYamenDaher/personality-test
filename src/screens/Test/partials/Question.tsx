@@ -101,7 +101,7 @@ const QuestionScreen: FC<Props> = () => {
                       checked={checkedAnswer?.id === answer.id}
                     />
                 ))}
-                <div className={`flex flex-row w-full ${isFirstQuestion ? 'justify-end' : 'justify-between'}`}>
+                <div className={`flex flex-row w-full ${isFirstQuestion ? 'justify-end' : 'justify-around'}`}>
                     {!isFirstQuestion && renderPrevButton()}
                     {renderNextButton()}
                 </div>

@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# First steps:
+
+Add .env file (same as .env.template) in your root directory
+Run npm install
+
 ## Available Scripts
 
 In the project directory, you can run:

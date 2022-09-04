@@ -45,7 +45,7 @@ const Info: FC<Props> = () => {
     const renderStartButton = () => {
         return (
             <button 
-               disabled={name === ''}
+               disabled={name === '' || !questions || questions?.length === 0}
                type='button'
                onClick={handleStartAction}
                className='w-60 mt-10 whitespace-nowrap disabled:opacity-25 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-100 hover:bg-red-50'>

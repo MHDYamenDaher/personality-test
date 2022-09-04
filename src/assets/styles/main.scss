@@ -14,4 +14,4 @@
 @import 'base/fonts';
 
 // Page-specific styles parsing it at the end to override vendors
-@import 'pages/landing';
+@import 'pages/landing', 'pages/test';
